@@ -5,6 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratyush Trivedi | Engineering Leader</title>
     <style>
+        /* Tabs Container */
+.tabs {
+    margin-top: 20px;
+}
+
+/* Hide radio buttons */
+.tabs input[type="radio"] {
+    display: none;
+}
+
+/* Tab Labels */
+.tabs label {
+    padding: 10px 20px;
+    margin-right: 5px;
+    background: #ddd;
+    border-radius: 5px 5px 0 0;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.tabs input[type="radio"]:checked + label {
+    background: #0d1117;
+    color: white;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    padding: 20px;
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 0 5px 5px 5px;
+    margin-top: -1px;
+}
+
+/* Show content when tab is selected */
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3 {
+    display: block;
+}
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -63,14 +105,48 @@
 </header>
 
 <div class="section">
-    <h2>Leadership Highlights</h2>
-    <ul class="highlight-list">
-        <li>Led 35+ engineers across India & US for global e‑commerce platforms.</li>
-        <li>Delivered core experiences for a $40B+ revenue platform with millions of daily users.</li>
-        <li>Maintained 99%+ availability across Black Friday & Cyber Monday peaks.</li>
-        <li>Architected high‑scale customer journeys and performance‑critical systems.</li>
-        <li>Hands‑on debugging, system design, and performance engineering.</li>
-    </ul>
+    <h2>Portfolio Overview</h2>
+
+    <div class="tabs">
+
+        <!-- Tab Buttons -->
+        <input type="radio" name="tabs" id="tab1" checked>
+        <label for="tab1">Highlights</label>
+
+        <input type="radio" name="tabs" id="tab2">
+        <label for="tab2">Professional Experience</label>
+
+        <input type="radio" name="tabs" id="tab3">
+        <label for="tab3">Architecture Diagram</label>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="content1">
+            <h3>Leadership Highlights</h3>
+            <ul class="highlight-list">
+                <li>Led 35+ engineers across India & US for global e‑commerce platforms.</li>
+                <li>Delivered core experiences for a $40B+ revenue platform.</li>
+                <li>Maintained 99%+ availability during peak events.</li>
+                <li>Architected high‑scale customer journeys and performance‑critical systems.</li>
+            </ul>
+        </div>
+
+        <div class="tab-content" id="content2">
+            <h3>Dell Technologies — 15 Years</h3>
+            <p>Senior Engineering Manager & Technical Leader</p>
+            <ul class="highlight-list">
+                <li>Owned mission‑critical journeys across Dell.com.</li>
+                <li>Improved performance, reliability, and conversion.</li>
+                <li>Led cross‑geo engineering teams.</li>
+                <li>Modernized legacy systems into cloud‑ready services.</li>
+            </ul>
+        </div>
+
+        <div class="tab-content" id="content3">
+            <h3>Architecture Diagram</h3>
+            <img src="architecture.png" alt="Architecture Diagram" style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
+        </div>
+
+    </div>
 </div>
 
 <div class="section">
