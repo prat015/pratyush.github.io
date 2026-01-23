@@ -184,6 +184,70 @@
 
     </svg>
 </div>
+    <div class="section">
+    <h2>Sequence Diagram – MPesa STK Push Flow</h2>
+
+    <svg viewBox="0 0 1100 500" style="max-width:100%; background:#fff; border:1px solid #ccc; border-radius:8px;">
+
+        <!-- Arrowhead -->
+        <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+            </marker>
+        </defs>
+
+        <!-- Lifelines -->
+        <text x="100" y="40" text-anchor="middle">Client</text>
+        <line x1="100" y1="50" x2="100" y2="450" stroke="#999" stroke-dasharray="4"/>
+
+        <text x="300" y="40" text-anchor="middle">Payment Service</text>
+        <line x1="300" y1="50" x2="300" y2="450" stroke="#999" stroke-dasharray="4"/>
+
+        <text x="500" y="40" text-anchor="middle">MPesa Adapter</text>
+        <line x1="500" y1="50" x2="500" y2="450" stroke="#999" stroke-dasharray="4"/>
+
+        <text x="700" y="40" text-anchor="middle">MPesa</text>
+        <line x1="700" y1="50" x2="700" y2="450" stroke="#999" stroke-dasharray="4"/>
+
+        <text x="900" y="40" text-anchor="middle">Customer</text>
+        <line x1="900" y1="50" x2="900" y2="450" stroke="#999" stroke-dasharray="4"/>
+
+        <!-- Sequence Steps -->
+
+        <!-- 1. Initiate Payment -->
+        <line x1="100" y1="100" x2="300" y2="100" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="200" y="90" text-anchor="middle" font-size="12">Initiate Payment</text>
+
+        <!-- 2. Payment -> Adapter -->
+        <line x1="300" y1="140" x2="500" y2="140" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="400" y="130" text-anchor="middle" font-size="12">Create STK Push</text>
+
+        <!-- 3. Adapter -> MPesa -->
+        <line x1="500" y1="180" x2="700" y2="180" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="600" y="170" text-anchor="middle" font-size="12">STK Push API Call</text>
+
+        <!-- 4. MPesa -> Customer -->
+        <line x1="700" y1="220" x2="900" y2="220" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="800" y="210" text-anchor="middle" font-size="12">STK Push Prompt</text>
+
+        <!-- 5. Customer approves -->
+        <line x1="900" y1="260" x2="700" y2="260" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="800" y="250" text-anchor="middle" font-size="12">User Approves</text>
+
+        <!-- 6. MPesa -> Adapter (Callback) -->
+        <line x1="700" y1="300" x2="500" y2="300" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="600" y="290" text-anchor="middle" font-size="12">Async Callback</text>
+
+        <!-- 7. Adapter -> Payment -->
+        <line x1="500" y1="340" x2="300" y2="340" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="400" y="330" text-anchor="middle" font-size="12">Update Status</text>
+
+        <!-- 8. Payment -> Client -->
+        <line x1="300" y1="380" x2="100" y2="380" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="200" y="370" text-anchor="middle" font-size="12">Final Status</text>
+
+    </svg>
+</div>
 <footer>
     © 2026 Pratyush Trivedi — Portfolio under development
 </footer>
