@@ -74,11 +74,56 @@
 </div>
 
 <div class="section">
-    <h2>Featured Project</h2>
-    <p><strong>Cloud‑Native Payment Orchestration Platform (MPesa Integration)</strong></p>
-    <p>Designed and implemented a secure, scalable payment orchestration system with callback reliability, idempotent workflows, and multi‑tenant credential management.</p>
-</div>
+    <h2>Case Study: MPesa Payment Orchestration Platform</h2>
 
+    <p><strong>Context</strong></p>
+    <p>
+        MPesa is one of Africa’s largest mobile money platforms, processing millions of transactions daily.
+        Our goal was to integrate MPesa into a global e‑commerce payment stack with strict requirements for
+        reliability, security, and real‑time callback processing.
+    </p>
+
+    <p><strong>Problem</strong></p>
+    <ul class="highlight-list">
+        <li>MPesa uses asynchronous callbacks, requiring a reliable orchestration layer to track transaction state.</li>
+        <li>Network instability and callback delays could lead to inconsistent payment states.</li>
+        <li>Multiple tenants needed isolated credentials and routing logic.</li>
+        <li>High‑scale traffic demanded idempotent workflows and retry‑safe processing.</li>
+    </ul>
+
+    <p><strong>Architecture Overview</strong></p>
+    <ul class="highlight-list">
+        <li>Cloud‑native microservice built with stateless compute and durable state storage.</li>
+        <li>Idempotent transaction orchestration using unique request tokens and state machines.</li>
+        <li>Secure credential vault for tenant‑specific MPesa keys and endpoints.</li>
+        <li>Callback ingestion pipeline with signature validation and replay protection.</li>
+        <li>Guaranteed delivery using retry queues, exponential backoff, and dead‑letter handling.</li>
+    </ul>
+
+    <p><strong>Key Reliability Patterns</strong></p>
+    <ul class="highlight-list">
+        <li><strong>Idempotency:</strong> Every transaction step could be safely retried without duplication.</li>
+        <li><strong>State machine orchestration:</strong> Pending → Processing → Callback Received → Completed/Failed.</li>
+        <li><strong>Callback verification:</strong> HMAC signature validation and timestamp checks.</li>
+        <li><strong>Resilience:</strong> Automatic retries for MPesa API timeouts and transient failures.</li>
+    </ul>
+
+    <p><strong>Impact</strong></p>
+    <ul class="highlight-list">
+        <li>Achieved <strong>99.9% callback processing reliability</strong> across unstable networks.</li>
+        <li>Reduced payment failures by <strong>40%+</strong> through idempotent workflows.</li>
+        <li>Enabled multi‑tenant onboarding with secure credential isolation.</li>
+        <li>Delivered a scalable, auditable payment flow used across multiple African markets.</li>
+    </ul>
+
+    <p><strong>My Role</strong></p>
+    <ul class="highlight-list">
+        <li>Led architecture design and end‑to‑end implementation of the orchestration layer.</li>
+        <li>Designed the state machine, idempotency strategy, and callback reliability patterns.</li>
+        <li>Collaborated with MPesa teams to validate API flows and security requirements.</li>
+        <li>Mentored engineers on distributed systems, retries, and event‑driven design.</li>
+    </ul>
+</div>
 <footer>
     © 2026 Pratyush Trivedi — Portfolio under development
 </footer>
