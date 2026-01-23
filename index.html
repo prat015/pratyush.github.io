@@ -119,6 +119,9 @@
         <input type="radio" name="tabs" id="tab3">
         <label for="tab3">Architecture Diagram</label>
 
+        <input type="radio" name="tabs" id="tab4">
+        <label for="tab4">MPesa Case Study</label>
+
         <!-- Tab Content -->
         <div class="tab-content" id="content1">
             <h3>Leadership Highlights</h3>
@@ -141,11 +144,42 @@
             </ul>
         </div>
 
-        <div class="tab-content" id="content3">
-            <h3>Architecture Diagram</h3>
-            <img src="architecture.png" alt="Architecture Diagram" style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
-        </div>
+        <div class="tab-content" id="content4">
+            <h3>MPesa Payment Orchestration Case Study</h3>
 
+            <p><strong>Context</strong></p>
+            <p>MPesa is one of Africa’s largest mobile money platforms. The goal was to integrate MPesa’s 
+        STK Push flow into a global e‑commerce payment stack with strict reliability and security requirements.
+    </p>
+
+    <p><strong>Problem</strong></p>
+    <ul class="highlight-list">
+        <li>MPesa uses asynchronous callbacks, requiring reliable state tracking.</li>
+        <li>Network instability could cause delayed or missing callbacks.</li>
+        <li>Needed a clean API for the client to initiate payments and check status.</li>
+        <li>Required idempotent workflows to avoid duplicate transactions.</li>
+    </ul>
+
+    <p><strong>Solution</strong></p>
+    <ul class="highlight-list">
+        <li>Payment Service initiates STK Push requests to MPesa.</li>
+        <li>MPesa sends STK prompt to customer handset for approval.</li>
+        <li>MPesa sends asynchronous callback to Payment Service.</li>
+        <li>Payment Service updates transaction state in a central DB.</li>
+        <li>Client retrieves final status via a status API.</li>
+    </ul>
+
+    <p><strong>Impact</strong></p>
+    <ul class="highlight-list">
+        <li>Achieved 99.9% callback processing reliability.</li>
+        <li>Reduced payment failures through idempotent workflows.</li>
+        <li>Delivered a scalable, auditable payment flow for multiple markets.</li>
+    </ul>
+     <div class="section">
+    <h2>Architecture Diagram</h2>
+    <img src="MPesa_Diagram.png" alt="MPesa Architecture Diagram" style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
+</div>
+</div>
     </div>
 </div>
 
