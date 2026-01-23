@@ -117,9 +117,6 @@
         <label for="tab2">Professional Experience</label>
 
         <input type="radio" name="tabs" id="tab3">
-        <label for="tab3">Architecture Diagram</label>
-
-        <input type="radio" name="tabs" id="tab4">
         <label for="tab4">MPesa Case Study</label>
 
         <!-- Tab Content -->
@@ -144,7 +141,7 @@
             </ul>
         </div>
 
-        <div class="tab-content" id="content4">
+        <div class="tab-content" id="content3">
             <h3>MPesa Payment Orchestration Case Study</h3>
 
             <p><strong>Context</strong></p>
@@ -183,143 +180,7 @@
     </div>
 </div>
 
-<div class="section">
-    <h2>Case Study: MPesa Payment Orchestration Platform</h2>
 
-    <p><strong>Context</strong></p>
-    <p>
-        MPesa is one of Africa’s largest mobile money platforms, processing millions of transactions daily.
-        Our goal was to integrate MPesa into a global e‑commerce payment stack with strict requirements for
-        reliability, security, and real‑time callback processing.
-    </p>
-
-    <p><strong>Problem</strong></p>
-    <ul class="highlight-list">
-        <li>MPesa uses asynchronous callbacks, requiring a reliable orchestration layer to track transaction state.</li>
-        <li>Network instability and callback delays could lead to inconsistent payment states.</li>
-        <li>Multiple tenants needed isolated credentials and routing logic.</li>
-        <li>High‑scale traffic demanded idempotent workflows and retry‑safe processing.</li>
-    </ul>
-
-   <p><strong>Architecture Overview</strong></p>
-    <ul class="highlight-list">
-        <li>Microservice-based payment stack with separate services for payment initiation, MPesa integration, and callback processing.</li>
-        <li>STK Push flow: customer triggers payment → MPesa prompts on handset → customer approves → MPesa sends async callback.</li>
-        <li>Payment service exposes a clean API to the e‑commerce platform and persists transaction state in a central store.</li>
-        <li>MPesa adapter service handles STK Push requests, API retries, and error normalization.</li>
-        <li>Callback processor service validates callbacks, updates transaction state, and notifies upstream systems.</li>
-    </ul>
-
-    <li><strong>End‑to‑end visibility:</strong> Client can query payment status via a payment status API backed by the central state store.</li>
-
-    <p><strong>Impact</strong></p>
-    <ul class="highlight-list">
-        <li>Achieved <strong>99.9% callback processing reliability</strong> across unstable networks.</li>
-        <li>Reduced payment failures by <strong>40%+</strong> through idempotent workflows.</li>
-        <li>Enabled multi‑tenant onboarding with secure credential isolation.</li>
-        <li>Delivered a scalable, auditable payment flow used across multiple African markets.</li>
-    </ul>
-
-    <p><strong>My Role</strong></p>
-    <ul class="highlight-list">
-        <li>Led architecture design and end‑to‑end implementation of the orchestration layer.</li>
-        <li>Designed the state machine, idempotency strategy, and callback reliability patterns.</li>
-        <li>Collaborated with MPesa teams to validate API flows and security requirements.</li>
-        <li>Mentored engineers on distributed systems, retries, and event‑driven design.</li>
-    </ul>
-</div>
-    <div class="section">
-    <h2>Experience: Dell Technologies</h2>
-
-    <p><strong>Senior Engineering Manager & Technical Leader</strong></p>
-    <p>15 years building, scaling, and optimizing Dell.com — one of the world’s largest e‑commerce platforms serving millions of customers globally.</p>
-
-    <h3 style="margin-top:20px;">Key Contributions</h3>
-    <ul class="highlight-list">
-        <li>Led engineering teams across India and the US to deliver high‑scale, customer‑facing experiences for Dell’s global commerce ecosystem.</li>
-        <li>Owned mission‑critical journeys including product discovery, configuration, checkout, and post‑purchase flows.</li>
-        <li>Improved platform performance and reliability across peak events like Black Friday and Cyber Monday.</li>
-        <li>Architected and modernized legacy systems into cloud‑ready, modular services.</li>
-        <li>Collaborated with product, UX, and business stakeholders to drive measurable revenue and conversion improvements.</li>
-        <li>Mentored engineers and managers, fostering a culture of technical excellence and ownership.</li>
-    </ul>
-
-    <h3 style="margin-top:20px;">Impact</h3>
-    <ul class="highlight-list">
-        <li>Contributed to a platform generating <strong>$40B+ in annual revenue</strong>.</li>
-        <li>Delivered features used by <strong>millions of customers</strong> across 100+ countries.</li>
-        <li>Achieved <strong>99%+ availability</strong> during global peak traffic events.</li>
-        <li>Reduced page load times and improved conversion through performance engineering.</li>
-    </ul>
-</div>
-  <div class="section">
-    <h2>Architecture Diagram</h2>
-    <img src="MPesa_Diagram.png" alt="MPesa Architecture Diagram" style="max-width:100%; border:1px solid #ccc; border-radius:8px;">
-</div>
-    <div class="section">
-    <h2>Sequence Diagram – MPesa STK Push Flow</h2>
-
-    <svg viewBox="0 0 1100 500" style="max-width:100%; background:#fff; border:1px solid #ccc; border-radius:8px;">
-
-        <!-- Arrowhead -->
-        <defs>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L9,3 z" fill="#333" />
-            </marker>
-        </defs>
-
-        <!-- Lifelines -->
-        <text x="100" y="40" text-anchor="middle">Client</text>
-        <line x1="100" y1="50" x2="100" y2="450" stroke="#999" stroke-dasharray="4"/>
-
-        <text x="300" y="40" text-anchor="middle">Payment Service</text>
-        <line x1="300" y1="50" x2="300" y2="450" stroke="#999" stroke-dasharray="4"/>
-
-        <text x="500" y="40" text-anchor="middle">MPesa Adapter</text>
-        <line x1="500" y1="50" x2="500" y2="450" stroke="#999" stroke-dasharray="4"/>
-
-        <text x="700" y="40" text-anchor="middle">MPesa</text>
-        <line x1="700" y1="50" x2="700" y2="450" stroke="#999" stroke-dasharray="4"/>
-
-        <text x="900" y="40" text-anchor="middle">Customer</text>
-        <line x1="900" y1="50" x2="900" y2="450" stroke="#999" stroke-dasharray="4"/>
-
-        <!-- Sequence Steps -->
-
-        <!-- 1. Initiate Payment -->
-        <line x1="100" y1="100" x2="300" y2="100" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="200" y="90" text-anchor="middle" font-size="12">Initiate Payment</text>
-
-        <!-- 2. Payment -> Adapter -->
-        <line x1="300" y1="140" x2="500" y2="140" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="400" y="130" text-anchor="middle" font-size="12">Create STK Push</text>
-
-        <!-- 3. Adapter -> MPesa -->
-        <line x1="500" y1="180" x2="700" y2="180" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="600" y="170" text-anchor="middle" font-size="12">STK Push API Call</text>
-
-        <!-- 4. MPesa -> Customer -->
-        <line x1="700" y1="220" x2="900" y2="220" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="800" y="210" text-anchor="middle" font-size="12">STK Push Prompt</text>
-
-        <!-- 5. Customer approves -->
-        <line x1="900" y1="260" x2="700" y2="260" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="800" y="250" text-anchor="middle" font-size="12">User Approves</text>
-
-        <!-- 6. MPesa -> Adapter (Callback) -->
-        <line x1="700" y1="300" x2="500" y2="300" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="600" y="290" text-anchor="middle" font-size="12">Async Callback</text>
-
-        <!-- 7. Adapter -> Payment -->
-        <line x1="500" y1="340" x2="300" y2="340" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="400" y="330" text-anchor="middle" font-size="12">Update Status</text>
-
-        <!-- 8. Payment -> Client -->
-        <line x1="300" y1="380" x2="100" y2="380" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="200" y="370" text-anchor="middle" font-size="12">Final Status</text>
-
-    </svg>
-</div>
 <footer>
     © 2026 Pratyush Trivedi — Portfolio under development
 </footer>
