@@ -91,22 +91,16 @@
         <li>High‑scale traffic demanded idempotent workflows and retry‑safe processing.</li>
     </ul>
 
-    <p><strong>Architecture Overview</strong></p>
+   <p><strong>Architecture Overview</strong></p>
     <ul class="highlight-list">
-        <li>Cloud‑native microservice built with stateless compute and durable state storage.</li>
-        <li>Idempotent transaction orchestration using unique request tokens and state machines.</li>
-        <li>Secure credential vault for tenant‑specific MPesa keys and endpoints.</li>
-        <li>Callback ingestion pipeline with signature validation and replay protection.</li>
-        <li>Guaranteed delivery using retry queues, exponential backoff, and dead‑letter handling.</li>
+        <li>Microservice-based payment stack with separate services for payment initiation, MPesa integration, and callback processing.</li>
+        <li>STK Push flow: customer triggers payment → MPesa prompts on handset → customer approves → MPesa sends async callback.</li>
+        <li>Payment service exposes a clean API to the e‑commerce platform and persists transaction state in a central store.</li>
+        <li>MPesa adapter service handles STK Push requests, API retries, and error normalization.</li>
+        <li>Callback processor service validates callbacks, updates transaction state, and notifies upstream systems.</li>
     </ul>
 
-    <p><strong>Key Reliability Patterns</strong></p>
-    <ul class="highlight-list">
-        <li><strong>Idempotency:</strong> Every transaction step could be safely retried without duplication.</li>
-        <li><strong>State machine orchestration:</strong> Pending → Processing → Callback Received → Completed/Failed.</li>
-        <li><strong>Callback verification:</strong> HMAC signature validation and timestamp checks.</li>
-        <li><strong>Resilience:</strong> Automatic retries for MPesa API timeouts and transient failures.</li>
-    </ul>
+    <li><strong>End‑to‑end visibility:</strong> Client can query payment status via a payment status API backed by the central state store.</li>
 
     <p><strong>Impact</strong></p>
     <ul class="highlight-list">
@@ -123,6 +117,88 @@
         <li>Collaborated with MPesa teams to validate API flows and security requirements.</li>
         <li>Mentored engineers on distributed systems, retries, and event‑driven design.</li>
     </ul>
+</div>
+    <div class="section">
+    <h2>Architecture Diagram</h2>
+    <svg viewBox="0 0 900 420" style="max-width:100%; border:1px solid #ccc; border-radius:8px; background:#fff;">
+        <!-- Client -->
+        <rect x="40" y="60" width="150" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="115" y="95" text-anchor="middle" font-size="12">Client / E‑commerce App</text>
+
+        <!-- Payment API -->
+        <rect x="260" y="60" width="160" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="340" y="85" text-anchor="middle" font-size="12">Payment Service API</text>
+        <text x="340" y="100" text-anchor="middle" font-size="11">Initiate Payment / Check Status</text>
+
+        <!-- MPesa Adapter -->
+        <rect x="500" y="40" width="170" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="585" y="70" text-anchor="middle" font-size="12">MPesa Adapter Service</text>
+
+        <!-- MPesa Platform -->
+        <rect x="730" y="40" width="140" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="800" y="65" text-anchor="middle" font-size="12">MPesa Platform</text>
+
+        <!-- Customer Handset -->
+        <rect x="730" y="130" width="140" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="800" y="155" text-anchor="middle" font-size="12">Customer Handset</text>
+        <text x="800" y="170" text-anchor="middle" font-size="11">STK Push Prompt</text>
+
+        <!-- Callback Processor -->
+        <rect x="500" y="200" width="170" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="585" y="225" text-anchor="middle" font-size="12">Callback Processor</text>
+        <text x="585" y="240" text-anchor="middle" font-size="11">Validate &amp; Update State</text>
+
+        <!-- State Store -->
+        <rect x="260" y="200" width="160" height="60" fill="#f5f5f5" stroke="#333"/>
+        <text x="340" y="225" text-anchor="middle" font-size="12">State Store / DB</text>
+
+        <!-- Retry Queue -->
+        <rect x="500" y="300" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="585" y="330" text-anchor="middle" font-size="12">Retry / DLQ</text>
+
+        <!-- Arrows: client -> payment API -->
+        <line x1="190" y1="90" x2="260" y2="90" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="225" y="80" font-size="11">Initiate Payment</text>
+
+        <!-- Payment API -> MPesa Adapter -->
+        <line x1="420" y1="90" x2="500" y2="70" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="460" y="60" font-size="11">STK Push Request</text>
+
+        <!-- MPesa Adapter -> MPesa -->
+        <line x1="670" y1="70" x2="730" y2="70" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="700" y="60" font-size="11">API Call</text>
+
+        <!-- MPesa -> Customer Handset -->
+        <line x1="800" y1="100" x2="800" y2="130" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="810" y="115" font-size="11">STK Push</text>
+
+        <!-- MPesa -> Callback Processor -->
+        <line x1="730" y1="70" x2="670" y2="230" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="705" y="160" font-size="11">Async Callback</text>
+
+        <!-- Callback Processor -> State Store -->
+        <line x1="500" y1="230" x2="420" y2="230" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="460" y="220" font-size="11">Update Status</text>
+
+        <!-- Callback Processor -> Retry Queue -->
+        <line x1="585" y1="260" x2="585" y2="300" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="595" y="285" font-size="11">Retries</text>
+
+        <!-- Payment API -> State Store (read/write) -->
+        <line x1="340" y1="120" x2="340" y2="200" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="350" y="160" font-size="11">Persist / Query</text>
+
+        <!-- State Store -> Client (via Payment API) -->
+        <line x1="260" y1="230" x2="190" y2="230" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="225" y="220" font-size="11">Status Response</text>
+
+        <!-- Arrowhead definition -->
+        <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+            </marker>
+        </defs>
+    </svg>
 </div>
 <footer>
     © 2026 Pratyush Trivedi — Portfolio under development
