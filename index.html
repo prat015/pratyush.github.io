@@ -120,74 +120,69 @@
 </div>
     <div class="section">
     <h2>MPesa Payment Flow – High Level</h2>
-    <svg viewBox="0 0 900 260" style="max-width:100%; border:1px solid #ccc; border-radius:8px; background:#fff;">
 
-        <!-- Client -->
-        <rect x="20" y="40" width="150" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="95" y="70" text-anchor="middle" font-size="12">Client / Web or App</text>
+    <svg viewBox="0 0 1000 360" style="max-width:100%; background:#fff; border:1px solid #ccc; border-radius:8px;">
 
-        <!-- Payment Service -->
-        <rect x="220" y="40" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="305" y="65" text-anchor="middle" font-size="12">Payment Service</text>
-
-        <!-- MPesa Adapter -->
-        <rect x="440" y="40" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="525" y="65" text-anchor="middle" font-size="12">MPesa Adapter</text>
-
-        <!-- MPesa Platform -->
-        <rect x="660" y="40" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="745" y="65" text-anchor="middle" font-size="12">MPesa Platform</text>
-
-        <!-- Customer Handset -->
-        <rect x="660" y="140" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="745" y="165" text-anchor="middle" font-size="12">Customer Handset (STK Push)</text>
-
-        <!-- Callback Service -->
-        <rect x="440" y="140" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="525" y="165" text-anchor="middle" font-size="12">Callback Service</text>
-
-        <!-- State Store -->
-        <rect x="220" y="140" width="170" height="50" fill="#f5f5f5" stroke="#333"/>
-        <text x="305" y="165" text-anchor="middle" font-size="12">State Store / DB</text>
-
-        <!-- Arrows definition -->
+        <!-- Arrowhead -->
         <defs>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
                 <path d="M0,0 L0,6 L9,3 z" fill="#333" />
             </marker>
         </defs>
 
-        <!-- Client -> Payment Service -->
-        <line x1="170" y1="65" x2="220" y2="65" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="195" y="55" font-size="11">Initiate Payment</text>
+        <!-- Top Row Boxes -->
+        <rect x="20" y="40" width="180" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="110" y="70" text-anchor="middle" font-size="13">Client / Web or App</text>
 
-        <!-- Payment Service -> MPesa Adapter -->
-        <line x1="390" y1="65" x2="440" y2="65" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="415" y="55" font-size="11">Create STK Push</text>
+        <rect x="240" y="40" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="340" y="70" text-anchor="middle" font-size="13">Payment Service</text>
 
-        <!-- MPesa Adapter -> MPesa -->
-        <line x1="610" y1="65" x2="660" y2="65" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="635" y="55" font-size="11">API Call</text>
+        <rect x="480" y="40" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="580" y="70" text-anchor="middle" font-size="13">MPesa Adapter</text>
 
-        <!-- MPesa -> Handset -->
-        <line x1="745" y1="90" x2="745" y2="140" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="755" y="115" font-size="11">STK Push</text>
+        <rect x="720" y="40" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="820" y="70" text-anchor="middle" font-size="13">MPesa Platform</text>
 
-        <!-- MPesa -> Callback Service -->
-        <line x1="660" y1="65" x2="610" y2="165" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="640" y="120" font-size="11">Async Callback</text>
+        <!-- Bottom Row Boxes -->
+        <rect x="720" y="180" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="820" y="210" text-anchor="middle" font-size="13">Customer Handset (STK Push)</text>
 
-        <!-- Callback Service -> State Store -->
-        <line x1="440" y1="165" x2="390" y2="165" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="415" y="155" font-size="11">Update Status</text>
+        <rect x="480" y="180" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="580" y="210" text-anchor="middle" font-size="13">Callback Service</text>
 
-        <!-- Payment Service -> State Store (read/write) -->
-        <line x1="305" y1="90" x2="305" y2="140" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="315" y="115" font-size="11">Persist / Query</text>
+        <rect x="240" y="180" width="200" height="50" fill="#f5f5f5" stroke="#333"/>
+        <text x="340" y="210" text-anchor="middle" font-size="13">State Store / DB</text>
 
-        <!-- State Store -> Client (via Payment Service) -->
-        <line x1="220" y1="165" x2="170" y2="165" stroke="#333" marker-end="url(#arrow)"/>
-        <text x="195" y="155" font-size="11">Status Response</text>
+        <!-- Horizontal Arrows (Top Row) -->
+        <line x1="200" y1="65" x2="240" y2="65" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="220" y="55" font-size="11">Initiate Payment</text>
+
+        <line x1="440" y1="65" x2="480" y2="65" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="460" y="55" font-size="11">Create STK Push</text>
+
+        <line x1="680" y1="65" x2="720" y2="65" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="700" y="55" font-size="11">API Call</text>
+
+        <!-- STK Push Down Arrow -->
+        <line x1="820" y1="90" x2="820" y2="180" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="830" y="135" font-size="11">STK Push</text>
+
+        <!-- Callback Arrow -->
+        <line x1="720" y1="65" x2="680" y2="205" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="700" y="135" font-size="11">Async Callback</text>
+
+        <!-- Callback -> DB -->
+        <line x1="480" y1="205" x2="440" y2="205" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="460" y="195" font-size="11">Update Status</text>
+
+        <!-- Payment Service <-> DB -->
+        <line x1="340" y1="90" x2="340" y2="180" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="350" y="135" font-size="11">Persist / Query</text>
+
+        <!-- DB -> Client -->
+        <line x1="240" y1="205" x2="200" y2="205" stroke="#333" marker-end="url(#arrow)"/>
+        <text x="220" y="195" font-size="11">Status Response</text>
+
     </svg>
 </div>
 <footer>
